@@ -1,0 +1,4 @@
+[Particle]
+Name=LightningBolt
+Face=0,0,32,32,-16,-16
+

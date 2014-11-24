@@ -1,0 +1,3 @@
+Name=Club
+Description=Big brother of the baseball bat.
+UsageHelp=Aim and bat with [Use].

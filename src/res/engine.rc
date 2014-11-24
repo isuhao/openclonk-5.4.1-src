@@ -1,0 +1,269 @@
+#include "resource.h"
+#include "C4Version.h"
+
+#include <winresrc.h>
+
+#define IDC_STATIC (-1)
+
+LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Manifest
+//
+#ifndef CREATEPROCESS_MANIFEST_RESOURCE_ID
+#define CREATEPROCESS_MANIFEST_RESOURCE_ID 1
+#endif
+#ifndef RT_MANIFEST
+#define RT_MANIFEST 24
+#endif
+CREATEPROCESS_MANIFEST_RESOURCE_ID    RT_MANIFEST "openclonk.manifest"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icons
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_00_C4X              ICON    DISCARDABLE     "oc.ico"
+IDI_01_OCS              ICON    DISCARDABLE     "ocs.ico"
+IDI_02_OCG              ICON    DISCARDABLE     "ocg.ico"
+IDI_03_OCF              ICON    DISCARDABLE     "ocf.ico"
+IDI_04_OCP              ICON    DISCARDABLE     "ocp.ico"
+IDI_06_OCD              ICON    DISCARDABLE     "ocd.ico"
+IDI_07_OCI              ICON    DISCARDABLE     "oci.ico"
+IDI_08_OCM              ICON    DISCARDABLE     "ocm.ico"
+IDI_09_OCB              ICON    DISCARDABLE     "ocb.ico"
+IDI_10_OCV              ICON    DISCARDABLE     "ocv.ico"
+IDI_11_OCL              ICON    DISCARDABLE     "ocl.ico"
+IDI_13_OCU              ICON    DISCARDABLE     "ocu.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Game Explorer Integration
+//
+
+__GDF_XML DATA	"WindowsGamesExplorer.xml"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION C4XVER1,C4XVER2,C4XVER3,0
+ PRODUCTVERSION C4XVER1,C4XVER2,C4XVER3,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004b0"
+        BEGIN
+            VALUE "FileDescription", C4ENGINECAPTION "\0"
+            VALUE "FileVersion", C4VERSION "\0"
+            VALUE "SpecialBuild", C4BUILDOPT "\0"
+            VALUE "ProductVersion", C4VERSION "\0"
+            VALUE "InternalName", "OpenClonk Engine\0"
+            VALUE "LegalCopyright", "Copyright © " C4COPYRIGHT_YEAR " " C4COPYRIGHT_COMPANY "\0"
+            VALUE "LegalTrademarks", "Clonk is a registered trademark of Matthes Bender.\0"
+            VALUE "OriginalFilename", "openclonk.exe\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", C4ENGINENAME "\0"
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", C4COPYRIGHT_COMPANY "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 1200
+    END
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialogs
+//
+
+IDD_CONSOLE DIALOGEX 0, 0, 232, 127
+STYLE DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION |
+    WS_SYSMENU
+EXSTYLE WS_EX_CONTROLPARENT
+CAPTION "CONSOLE"
+MENU IDR_CONSOLEMENU
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,189,85,41,12,WS_GROUP
+    PUSHBUTTON      "P",IDC_BUTTONPLAY,107,100,13,11,BS_BITMAP | WS_GROUP
+    PUSHBUTTON      "P",IDC_BUTTONHALT,126,100,13,11,BS_BITMAP | WS_GROUP
+    COMBOBOX        IDC_COMBOINPUT,1,85,181,250,CBS_DROPDOWN |
+                    CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDITOUTPUT,1,1,211,82,ES_MULTILINE | ES_AUTOVSCROLL |
+                    ES_AUTOHSCROLL | ES_READONLY | WS_VSCROLL | WS_HSCROLL
+    LTEXT           "Frame: 0",IDC_STATICFRAME,1,100,52,11,SS_CENTERIMAGE,
+                    WS_EX_STATICEDGE
+    LTEXT           "Cursor",IDC_STATICCURSOR,1,115,229,11,SS_CENTERIMAGE,
+                    WS_EX_TRANSPARENT | WS_EX_STATICEDGE
+    PUSHBUTTON      "P",IDC_BUTTONMODEEDIT,217,14,13,12,BS_BITMAP | WS_GROUP
+    PUSHBUTTON      "P",IDC_BUTTONMODEDRAW,217,27,13,12,BS_BITMAP | WS_GROUP
+    LTEXT           "0:00:00 (0 FPS)",IDC_STATICTIME,145,100,85,11,
+                    SS_CENTERIMAGE,WS_EX_STATICEDGE
+    PUSHBUTTON      "P",IDC_BUTTONMODEPLAY,217,1,13,12,BS_BITMAP | WS_GROUP
+END
+
+IDD_PROPERTIES DIALOGEX 0, 0, 168, 62
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "PROPERTIES"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,135,48,31,12
+    EDITTEXT        IDC_EDITOUTPUT,1,1,165,45,ES_MULTILINE | ES_READONLY |
+                    WS_VSCROLL
+    COMBOBOX        IDC_COMBOINPUT,2,48,131,250,CBS_DROPDOWN |
+                    CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Reload Def",IDC_BUTTONRELOADDEF,2,22,45,12,NOT
+                    WS_VISIBLE
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,52,
+                    22,114,12,WS_EX_STATICEDGE
+END
+
+IDD_TOOLS DIALOGEX 0, 0, 194, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "TOOLS"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Button1",IDC_BUTTONBRUSH,24,2,16,16,BS_BITMAP
+    PUSHBUTTON      "Button1",IDC_BUTTONLINE,41,2,16,16,BS_BITMAP
+    PUSHBUTTON      "Button1",IDC_BUTTONRECT,58,2,16,16,BS_BITMAP
+    PUSHBUTTON      "Button1",IDC_BUTTONFILL,92,2,16,16,BS_BITMAP
+    CONTROL         "Slider1",IDC_SLIDERGRADE,"msctls_trackbar32",TBS_VERT |
+                    TBS_TOP | TBS_NOTICKS | WS_TABSTOP,59,18,10,36
+    LTEXT           "MATERIAL",IDC_STATICMATERIAL,112,3,78,8
+    LTEXT           "TEXTURE",IDC_STATICTEXTURE,112,27,78,8
+    PUSHBUTTON      "",IDC_BUTTONNOIFT,71,20,18,15,BS_BITMAP
+    PUSHBUTTON      "",IDC_BUTTONIFT,71,36,18,15,BS_BITMAP
+    COMBOBOX        IDC_COMBOMATERIAL,112,12,78,100,CBS_DROPDOWNLIST |
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBOTEXTURE,112,36,78,100,CBS_DROPDOWNLIST |
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_PREVIEW,"Static",SS_BLACKFRAME,24,21,33,30,
+                    WS_EX_TRANSPARENT | WS_EX_CLIENTEDGE
+    PUSHBUTTON      "",IDC_BUTTONMODEDYNAMIC,3,3,16,15,BS_BITMAP
+    PUSHBUTTON      "",IDC_BUTTONMODESTATIC,3,19,16,15,BS_BITMAP
+    PUSHBUTTON      "",IDC_BUTTONMODEEXACT,3,35,16,15,BS_BITMAP
+    PUSHBUTTON      "Button1",IDC_BUTTONPICKER,75,2,16,16,BS_BITMAP
+END
+
+IDD_COMPONENT DIALOG DISCARDABLE  0, 0, 277, 149
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "COMPONENT"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,188,134,42,14
+    PUSHBUTTON      "CANCEL",IDCANCEL,232,134,44,14
+    EDITTEXT        IDC_EDITDATA,1,1,275,131,ES_MULTILINE | ES_AUTOVSCROLL |
+                    ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL
+END
+
+IDD_GFXERROR DIALOGEX 200, 200, 300, 200
+STYLE DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION |
+    WS_SYSMENU | DS_CENTER
+CAPTION "OCOGLERR"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    LTEXT           "ERRORMSGGFX",IDC_GFXERR_MSG,6,20,294,33
+    LTEXT           "RES",IDC_GFXERR_RES,40,72,100,11
+    LTEXT           "X:",IDC_GFXERR_X,100,86,20,11
+    EDITTEXT        IDC_GFXERR_XINP,120,85,35,13, ES_RIGHT | WS_TABSTOP
+    LTEXT           "Y:",IDC_GFXERR_Y,100,100,20,11
+	EDITTEXT        IDC_GFXERR_YINP,120,99,35,13, ES_RIGHT | WS_TABSTOP
+	LTEXT           "INVAL",IDC_GFXERR_INVAL,170,86,110,33
+	AUTOCHECKBOX    "FULLSCREEN",IDC_GFXERR_FSCRN, 40, 135, 100, 11, WS_TABSTOP
+	DEFPUSHBUTTON   "RESTART",IDOK,  180,174,60,14, WS_TABSTOP
+    PUSHBUTTON      "CANCEL",IDCANCEL,60,174,60,14, WS_TABSTOP
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_PLAY                BITMAP  DISCARDABLE     "Play.bmp"
+IDB_HALT                BITMAP  DISCARDABLE     "Halt.bmp"
+IDB_CURSOR              BITMAP  DISCARDABLE     "Cursor.bmp"
+IDB_BRUSH               BITMAP  DISCARDABLE     "Brush.bmp"
+IDB_CURSOR2             BITMAP  DISCARDABLE     "Cursor2.bmp"
+IDB_PLAY2               BITMAP  DISCARDABLE     "Play2.bmp"
+IDB_HALT2               BITMAP  DISCARDABLE     "Halt2.bmp"
+IDB_BRUSH2              BITMAP  DISCARDABLE     "Brush2.bmp"
+IDB_FILL                BITMAP  DISCARDABLE     "Fill.bmp"
+IDB_LINE                BITMAP  DISCARDABLE     "Line.bmp"
+IDB_RECT                BITMAP  DISCARDABLE     "Rectangle.bmp"
+IDB_NOIFT               BITMAP  DISCARDABLE     "NoIFT.bmp"
+IDB_IFT                 BITMAP  DISCARDABLE     "IFT.bmp"
+IDB_MOUSE               BITMAP  DISCARDABLE     "mouse.bmp"
+IDB_MOUSE2              BITMAP  DISCARDABLE     "mouse1.bmp"
+IDB_DYNAMIC             BITMAP  DISCARDABLE     "ift1.bmp"
+IDB_STATIC              BITMAP  DISCARDABLE     "dynamic1.bmp"
+IDB_EXACT               BITMAP  DISCARDABLE     "static1.bmp"
+IDB_LINE2               BITMAP  DISCARDABLE     "line1.bmp"
+IDB_RECT2               BITMAP  DISCARDABLE     "rect1.bmp"
+IDB_FILL2               BITMAP  DISCARDABLE     "fill1.bmp"
+IDB_PICKER              BITMAP  DISCARDABLE     "brush1.bmp"
+IDB_PICKER2             BITMAP  DISCARDABLE     "picker1.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_CONTEXTMENUS MENU DISCARDABLE
+BEGIN
+    POPUP "VIEWPORT"
+    BEGIN
+        MENUITEM "DELETE",                      IDM_VIEWPORT_DELETE
+        MENUITEM "DUPLICATE",                   IDM_VIEWPORT_DUPLICATE
+        MENUITEM "GRAB CONTENTS",               IDM_VIEWPORT_CONTENTS
+        , GRAYED
+    END
+END
+
+IDR_CONSOLEMENU MENU DISCARDABLE
+BEGIN
+    POPUP "FILE"
+    BEGIN
+        MENUITEM "OPEN",                        IDM_FILE_OPEN
+        MENUITEM "OPENWPLRS",                   IDM_FILE_OPENWPLRS
+        MENUITEM SEPARATOR
+        MENUITEM "SAVESCENARIO",                IDM_FILE_SAVE
+        MENUITEM "SAVESCENARIOAS",              IDM_FILE_SAVEAS
+        MENUITEM "SAVEGAME AS",                 IDM_FILE_SAVEGAMEAS
+        MENUITEM "RECORD",                      IDM_FILE_RECORD
+        MENUITEM SEPARATOR
+        MENUITEM "CLOSE",                       IDM_FILE_CLOSE
+        MENUITEM SEPARATOR
+        MENUITEM "QUIT",                        IDM_FILE_QUIT
+    END
+    POPUP "PLAYER"
+    BEGIN
+        MENUITEM "NEW",                         IDM_PLAYER_JOIN
+    END
+    POPUP "VIEWPORT"
+    BEGIN
+        MENUITEM "NEW",                         IDM_VIEWPORT_NEW
+    END
+    POPUP "?"
+    BEGIN
+        MENUITEM "ABOUT",                       IDM_HELP_ABOUT
+    END
+END
+

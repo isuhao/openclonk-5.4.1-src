@@ -1,0 +1,3 @@
+Name=Eisenbombe
+Description=Bumm!
+UsageHelp=Drücke [Benutzen] um sie anzuzünden, danach schnell wegwerfen!

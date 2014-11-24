@@ -1,0 +1,77 @@
+
+############################################################################
+# Project version information
+############################################################################
+
+SET(C4PROJECT           "OpenClonk Project")
+SET(C4PROJECT_DOMAIN    "openclonk")
+SET(C4PROJECT_TLD       "org")
+SET(C4PROJECT_URL       "http://${C4PROJECT_DOMAIN}.${C4PROJECT_TLD}")
+SET(C4ENGINENAME        "OpenClonk")
+SET(C4ENGINENICK        "openclonk")
+SET(C4ENGINEID          "${C4PROJECT_TLD}.${C4PROJECT_DOMAIN}.${C4ENGINENICK}")
+
+SET(C4XVER1             5)
+SET(C4XVER2             4)
+SET(C4XVER3             1)
+
+# C4VERSIONBUILDNAME should be witty and somewhat frequently changing
+# for alpha and beta releases, and meaningful and stable for stable releases.
+# Both variables need to start with a space if they aren't empty.
+SET(C4VERSIONBUILDNAME  " Beyond the Rocks")
+SET(C4VERSIONEXTRA      "")
+
+############################################################################
+# Get revision from Git
+############################################################################
+include(GitGetChangesetID)
+git_get_changeset_id(C4REVISION)
+
+############################################################################
+# Get year
+############################################################################
+
+IF(CMAKE_HOST_UNIX)
+	EXECUTE_PROCESS(COMMAND "date" "+%Y" OUTPUT_VARIABLE DATE)
+ELSEIF(CMAKE_HOST_WIN32)
+	EXECUTE_PROCESS(COMMAND "cscript.exe" "//nologo" "${CMAKE_CURRENT_SOURCE_DIR}/tools/get_current_year.vbs" OUTPUT_VARIABLE DATE)
+ENDIF()
+STRING(REGEX REPLACE "(.+)\n" "\\1" YEARFIXED "${DATE}")
+SET(C4COPYRIGHT_YEAR ${YEARFIXED})
+
+############################################################################
+# Build version strings
+############################################################################
+
+SET(C4ENGINECAPTION     "${C4ENGINENAME}{$C4VERSIONBUILDNAME}")
+set(C4ENGINEINFO        "${C4ENGINENAME}")
+
+set(C4VERSION           "${C4XVER1}.${C4XVER2}.${C4XVER3}")
+
+if(C4XVER4 LESS 10)
+	set(C4VERSION       "${C4VERSION} [00${C4XVER4}]")
+elseif(C4XVERBUILD LESS 100)
+	set(C4VERSION       "${C4VERSION} [0${C4XVER4}]")
+else()
+	set(C4VERSION       "${C4VERSION} [${C4XVER4}]")
+endif()
+
+if(NOT ${C4VERSIONEXTRA} STREQUAL "")
+	set(C4ENGINEINFO    "${C4ENGINENAME} ${C4VERSIONEXTRA}")
+	set(C4VERSION       "${C4VERSION} ${C4VERSIONEXTRA}")
+endif()
+
+if(WIN32)
+	set(C4VERSION       "${C4VERSION} win")
+elseif(APPLE)
+	set(C4VERSION       "${C4VERSION} mac")
+elseif(UNIX)
+	set(C4VERSION       "${C4VERSION} unix")
+else()
+	set(C4VERSION       "${C4VERSION} strange")
+endif()
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/C4Version.h.in ${CMAKE_CURRENT_BINARY_DIR}/C4Version.h ESCAPE_QUOTES)
+if(WIN32)
+	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/res/WindowsGamesExplorer.xml.in ${CMAKE_CURRENT_BINARY_DIR}/WindowsGamesExplorer.xml ESCAPE_QUOTES)
+endif()

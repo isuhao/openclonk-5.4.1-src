@@ -1,0 +1,2 @@
+Name=Holzhütte
+Description=Eine einfache Unterkunft.

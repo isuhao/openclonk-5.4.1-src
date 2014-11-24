@@ -1,0 +1,3 @@
+[Particle]
+Name=Wave
+Face=0,0,100,50,-50,-25

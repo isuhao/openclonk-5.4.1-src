@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!ENTITY % text "a | img | emlink | funclink | em | code | strong">
+
+<!ELEMENT funcs ((func | const)+, (author, date)+)>
+  <!ELEMENT func           (title, deprecated?, category, subcat*, version, deprecated?, syntax, desc, remark*, examples?, related?)>
+  <!ELEMENT const          (title, deprecated?, category, subcat*, version, deprecated?, syntax, desc, remark*, examples?, related?)>
+    <!ELEMENT title        (#PCDATA)>
+    <!ELEMENT category     (#PCDATA)>
+    <!ELEMENT subcat       (#PCDATA)>
+    <!ELEMENT version      (#PCDATA | extversion)*>
+      <!ELEMENT extversion (#PCDATA)>
+    <!ELEMENT deprecated   EMPTY>
+    <!ELEMENT internal     EMPTY>
+    <!ELEMENT syntax       (rtype, params*)>
+      <!ELEMENT rtype      (#PCDATA)>
+      <!ELEMENT params     (#PCDATA | param)*>
+        <!ELEMENT param    (type?, optional?, name, optional?, desc, optional?)>
+          <!ELEMENT name   (#PCDATA)>
+          <!ELEMENT type   (#PCDATA)>
+          <!ELEMENT desc   (#PCDATA | br | ul | li | table | %text;)*>
+          <!ELEMENT optional EMPTY>
+    <!ELEMENT remark       (#PCDATA | br | ul | li | table | %text;)*>
+    <!ELEMENT examples     (example+)>
+      <!ELEMENT example    (code | text)*>
+        <!ELEMENT code     (#PCDATA | funclink | emlink | em | i | strong)*>
+          <!ATTLIST code
+            id CDATA #IMPLIED>
+          <!ELEMENT i      (#PCDATA)>
+        <!ELEMENT text     (#PCDATA | br | ul | li | table | %text;)*>
+          <!ATTLIST text
+            id CDATA #IMPLIED>
+    <!ELEMENT related      (funclink | emlink)+>
+      <!ELEMENT funclink   (#PCDATA)>
+      <!ELEMENT emlink     (#PCDATA | %text;)*>
+        <!ATTLIST emlink href CDATA #REQUIRED>
+  <!ELEMENT author         (#PCDATA)>
+  <!ELEMENT date           (#PCDATA)>
+  <!ELEMENT search         EMPTY>
+<!ELEMENT doc (title, (h | text | table | part | code | dl | ul | img | search | examples)+, related?, (author, date?)+)>
+  <!ELEMENT part ((h | text | table | part | code | dl | ul | img | search | examples)+, related?)>
+  <!ELEMENT h     (#PCDATA | %text;)*>
+    <!ATTLIST h
+      id CDATA #IMPLIED>
+
+
+<!ELEMENT br EMPTY>
+
+<!ELEMENT table (#PCDATA | caption | rowh | row | bitmask)*>
+  <!ELEMENT caption (#PCDATA)>
+    <!ATTLIST caption
+      id CDATA #IMPLIED>
+  <!ELEMENT row   (#PCDATA | col | literal_col)*>
+    <!ATTLIST row
+      id CDATA #IMPLIED>
+  <!ELEMENT rowh  (#PCDATA | col | literal_col)*>
+  <!ELEMENT col   (#PCDATA | table | text | %text;)*>
+    <!ATTLIST col
+      id CDATA #IMPLIED
+      colspan CDATA #IMPLIED>
+  <!ELEMENT literal_col   (#PCDATA | table | text | %text;)*>
+    <!ATTLIST literal_col
+      colspan CDATA #IMPLIED>
+  <!ELEMENT bitmask (#PCDATA)>
+
+<!ELEMENT ul    (#PCDATA | li)*>
+  <!ELEMENT li    (#PCDATA | br | table | text | %text;)*>
+    <!ATTLIST li
+      id CDATA #IMPLIED>
+
+<!ELEMENT dl    (#PCDATA | dd | dt)*>
+  <!ELEMENT dt    (#PCDATA | br | %text;)*>
+    <!ATTLIST dt
+      id CDATA #IMPLIED>
+  <!ELEMENT dd    (#PCDATA | text | code)*>
+
+<!ELEMENT em    (#PCDATA)>
+<!ELEMENT strong (#PCDATA)>
+
+<!ELEMENT img   EMPTY>
+  <!ATTLIST img
+    src CDATA #REQUIRED
+    alt CDATA #IMPLIED
+    class CDATA #IMPLIED
+    width CDATA #IMPLIED
+    height CDATA #IMPLIED
+    id CDATA #IMPLIED>
+
+<!ELEMENT a     (#PCDATA)>
+  <!ATTLIST a
+    href CDATA #REQUIRED>

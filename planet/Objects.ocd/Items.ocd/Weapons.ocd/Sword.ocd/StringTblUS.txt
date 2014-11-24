@@ -1,0 +1,3 @@
+Name=Sword
+Description=Close combat weapon.
+UsageHelp=Press [Use] to strike.
